@@ -1,6 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
+import MovieCard from './MovieCard';
 
 //  API KEY: eea5807b
 
@@ -13,6 +14,7 @@ const movieOne = {
   "Poster": "https://m.media-amazon.com/images/M/MV5BYjFhN2RjZTctMzA2Ni00NzE2LWJmYjMtNDAyYTllOTkyMmY3XkEyXkFqcGdeQXVyNTA0OTU0OTQ@._V1_SX300.jpg"
 }
 const App = () => {
+  const [movies, setMovies] = useState();
 
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
@@ -42,21 +44,7 @@ const App = () => {
 
       </div>
       <div className="container">
-        <div className="movie">
-          <div>
-            <p>{movieOne.Year}</p>
-          </div>
-
-          <div>
-            <img src={movieOne.Poster !== 'N/A' ? movieOne.Poster : 'https://via.placeholder.com/400'} alt={movieOne.Title} />
-          </div>
-
-          <div>
-            <span>{movieOne.Type}</span>
-            <h3>{movieOne.Title}</h3>
-          </div>
-
-        </div>
+        <MovieCard movieOne={movieOne} />
       </div>
     </div>
   );
