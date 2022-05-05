@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import './App.css';
 import MovieCard from "./MovieCard";
-
+import { FaSearch } from "react-icons/fa";
 
 //  API KEY: eea5807b
 
@@ -16,6 +16,7 @@ const movieOne = {
 }
 const App = () => {
   const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('')
 
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
@@ -35,13 +36,13 @@ const App = () => {
       <div className="search">
         <input
           placeholder="Search for movies"
-          value="Lord of the Rings"
+          value={searchTerm}
           type="text"
           name=""
           id=""
-          onChange={() => { }}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-
+        <FaSearch onClick={() => searchMovies(searchTerm)} />
 
       </div>
 
@@ -52,15 +53,14 @@ const App = () => {
       {movies?.length > 0 ? (
         <div className="container">
           {movies.map((movies) => (
-            <MovieCard movieOne={movies} />
+            <MovieCard movie={movies} />
           ))}
         </div>
       ) : (
         <div className="empty">No movies found</div>
-      )
+      )}
 
 
-      }
 
 
     </div>
